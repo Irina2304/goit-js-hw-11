@@ -14,6 +14,7 @@ const btn = document.querySelector(".js-load-more");
 form.addEventListener("submit", onSubmit);
 
 let perPage = 40;
+let currentPage;
 let simpleLightBox = new SimpleLightbox('.gallery a');
 
 btn.classList.replace("load-more", "load-more-hidden");
