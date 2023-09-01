@@ -10,19 +10,10 @@ import { serviceImg } from './img-api';
 const form = document.querySelector(".search-form");
 const container = document.querySelector(".gallery");
 const btn = document.querySelector(".js-load-more");
-const input =document.querySelector(".form-input")
 
 form.addEventListener("submit", onSubmit);
-input.addEventListener("focus", onfocus)
-
-function onfocus() {
-  form.reset();
-  container.innerHTML = ""
-  btn.classList.replace("load-more", "load-more-hidden");
-}
 
 let perPage = 40;
-let currentPage = 1;
 let simpleLightBox = new SimpleLightbox('.gallery a');
 
 btn.classList.replace("load-more", "load-more-hidden");
@@ -37,7 +28,8 @@ function onSubmit(evt) {
       throw new Error(noImagesFound());
   }
   
-  serviceImg(currentPage, perPage, searchQuery)
+  serviceImg(currentPage = 1, perPage, searchQuery)
+  
   .then((data) => {
     const { hits, totalHits } = data;
 
