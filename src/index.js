@@ -11,15 +11,16 @@ const form = document.querySelector(".search-form");
 const container = document.querySelector(".gallery");
 const btn = document.querySelector(".js-load-more");
 
+btn.classList.replace("load-more", "load-more-hidden");
+
 form.addEventListener("submit", onSubmit);
 
 let perPage = 40;
 let currentPage;
 let simpleLightBox = new SimpleLightbox('.gallery a');
 
-btn.classList.replace("load-more", "load-more-hidden");
-
 function onSubmit(evt) {
+  btn.classList.replace("load-more", "load-more-hidden");
   evt.preventDefault();
   container.innerHTML = '';
   
