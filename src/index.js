@@ -16,8 +16,9 @@ btn.classList.replace("load-more", "load-more-hidden");
 form.addEventListener("submit", onSubmit);
 
 let perPage = 40;
-let currentPage;
+let currentPage = 1;
 let simpleLightBox = new SimpleLightbox('.gallery a');
+let query;
 
 function onSubmit(evt) {
   btn.classList.replace("load-more", "load-more-hidden");
@@ -25,12 +26,13 @@ function onSubmit(evt) {
   container.innerHTML = '';
   
   const { searchQuery } = evt.currentTarget.elements;
+  query = searchQuery.value;
 
-  if (searchQuery.value === "") {
+  if (query === "") {
       throw new Error(noImagesFound());
   }
   
-  serviceImg(currentPage = 1, perPage, searchQuery)
+  serviceImg(currentPage, perPage, query)
   
   .then((data) => {
     const { hits, totalHits } = data;
@@ -46,20 +48,20 @@ function onSubmit(evt) {
       
     if (totalHits > perPage) {
       btn.classList.replace('load-more-hidden', 'load-more');
+      return query;
     }
   })
         
   .catch(() => {
     noImagesFound()
   })
+}
 
-
-  
-  btn.addEventListener("click", onLoadMore);
+btn.addEventListener("click", onLoadMore);
 
   function onLoadMore() {
     currentPage += 1;
-    serviceImg(currentPage, perPage, searchQuery)
+    serviceImg(currentPage, perPage, query)
       
     .then((data) => {
       const { hits, totalHits } = data;
@@ -77,7 +79,6 @@ function onSubmit(evt) {
       noImagesFound()
     })
   }  
-}
 
 function imagesFound(totalHits) {
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
