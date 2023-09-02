@@ -16,7 +16,7 @@ btn.classList.replace("load-more", "load-more-hidden");
 form.addEventListener("submit", onSubmit);
 
 let perPage = 40;
-let currentPage = 1;
+let currentPage;
 let simpleLightBox = new SimpleLightbox('.gallery a');
 let query;
 
@@ -27,6 +27,7 @@ function onSubmit(evt) {
   
   const { searchQuery } = evt.currentTarget.elements;
   query = searchQuery.value;
+  currentPage = 1;
 
   if (query === "") {
       throw new Error(noImagesFound());
